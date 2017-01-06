@@ -1,0 +1,10 @@
+---
+- name: Provision Demo Environment
+  hosts: all
+  become: true
+
+  roles:
+    - { role: tower, when: "ansible_hostname == 'tower'" }
+    - { role: remote, when: "ansible_hostname != 'tower'" }
+
+

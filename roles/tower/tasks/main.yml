@@ -1,0 +1,43 @@
+---
+- name: fix un-upped ethernet adapters
+  shell: ifup eth1
+
+- name: download tower installer
+  get_url:
+    url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
+    dest: /tmp/ansible-tower-setup-latest.tar.gz
+    mode: 0640
+
+- name: extract installer
+  unarchive:
+    src: /tmp/ansible-tower-setup-latest.tar.gz
+    dest: /tmp/
+    remote_src: True
+
+- name: template inventory file
+  template:
+    src: inventory 
+    dest: /tmp/ansible-tower-setup-{{ towerversion }}/inventory 
+
+- name: run the tower installer
+  shell: ./setup.sh chdir=/tmp/ansible-tower-setup-{{ towerversion }}
+
+- name: copy ansible hosts file
+  copy: 
+    src: hosts 
+    dest: /etc/ansible/hosts
+
+- name: Post license key
+  uri:
+    url: https://localhost/api/v1/config/
+    method: POST
+    user: admin
+    password: "{{ towerpass }}"
+    body: "{{ lookup('file','tower_license.json') }}"
+    body_format: json
+    validate_certs: False 
+
+- name: import inventory to Tower demo inventory
+  shell: tower-manage inventory_import --source=/etc/ansible/hosts --inventory-id=1
+
+

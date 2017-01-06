@@ -1,0 +1,5 @@
+---
+towerversion: 3.0.3
+towerpass: password1
+redispass: password2
+pgpass: password3

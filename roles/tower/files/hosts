@@ -1,0 +1,20 @@
+localhost ansible_connection=local ansible_user=awx
+
+[webservers]
+host1 ansible_ssh_host=10.42.0.6 ansible_user=vagrant ansible_password=vagrant
+host2 ansible_ssh_host=10.42.0.7 ansible_user=vagrant ansible_password=vagrant
+
+[dbservers]
+host3 ansible_ssh_host=10.42.0.8 ansible_user=vagrant ansible_password=vagrant
+
+[lbservers]
+host4 ansible_ssh_host=10.42.0.9 ansible_user=vagrant ansible_password=vagrant
+
+[monitoring]
+host5 ansible_ssh_host=10.42.0.10 ansible_user=vagrant ansible_password=vagrant
+
+[vagrant:children]
+webservers
+dbservers
+lbservers
+monitoring
