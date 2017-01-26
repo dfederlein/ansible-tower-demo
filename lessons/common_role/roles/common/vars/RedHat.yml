@@ -1,0 +1,5 @@
+---
+packages:
+  - libselinux-python
+  - git
+  - python-httplib2
