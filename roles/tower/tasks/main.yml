@@ -38,6 +38,6 @@
     validate_certs: False 
   when: license is undefined
 
-- name: import inventory to Tower demo inventory
-  shell: tower-manage inventory_import --source=/etc/ansible/hosts --inventory-id=1
-  when: license is undefined
+# - name: import inventory to Tower demo inventory
+#   shell: tower-manage inventory_import --source=/etc/ansible/hosts --inventory-id=1
+#   when: license is undefined
