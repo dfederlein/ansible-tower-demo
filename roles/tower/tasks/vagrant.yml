@@ -4,8 +4,24 @@
     src: "vagrant_hosts" 
     dest: /etc/ansible/hosts
 
+- name: create vagrant inventory
+  uri:
+    url: https://localhost/api/v1/inventories/
+    method: POST
+    user: admin
+    password: "{{ towerpass }}"
+    body: "{{ lookup('file','tower_vagrant_inventory.json') }}"
+    body_format: json
+    validate_certs: False 
+    status_code:
+      - 200
+      - 201
+      - 400
+  register: response
+  changed_when: response.status == 201
+
 - name: import inventory to Tower demo inventory
-  shell: tower-manage inventory_import --source=/etc/ansible/hosts --inventory-id=1
+  shell: tower-manage inventory_import --source=/etc/ansible/hosts --inventory-id=2
 
 - name: create vagrant ssh machine credential
   uri:

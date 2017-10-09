@@ -1,0 +1,9 @@
+{
+    "name": "Vagrant",
+    "description": "Vagrant Demo Inventory",
+    "organization": 1,
+    "kind": "",
+    "host_filter": null,
+    "variables": "---",
+    "insights_credential": null
+}

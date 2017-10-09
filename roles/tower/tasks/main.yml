@@ -41,6 +41,7 @@
 - name: wait for tower to be up
   pause:
     seconds: 20
+  when: towerchk != towerversion
 
 - name: Post license key
   uri:
@@ -54,11 +55,11 @@
 
 # These next two configure inventory and credentials depending on provisioning. 
 
-# - include_tasks: "vagrant.yml"
-#   when: "'tag_Vagrant_True' in group_names"
+- include_tasks: "vagrant.yml"
+  when: "'tag_Vagrant_True' in group_names"
 
 - include_tasks: "aws.yml"
-#  when: "'tag_AWS_True' in group_names"
+  when: "'tag_AWS_True' in group_names"
 
 - name: create project
   uri:
@@ -72,6 +73,6 @@
     status_code:
       - 200
       - 201
-      - 400
   register: response
   changed_when: response.status == 201
+
