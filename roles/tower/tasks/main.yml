@@ -73,6 +73,7 @@
     status_code:
       - 200
       - 201
+      - 400
   register: response
   changed_when: response.status == 201
 
