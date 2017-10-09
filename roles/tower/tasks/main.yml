@@ -38,6 +38,10 @@
   shell: ./setup.sh chdir=/tmp/ansible-tower-setup-{{ towerversion }}
   when: towerchk != towerversion
 
+- name: wait for tower to be up
+  pause:
+    seconds: 20
+
 - name: Post license key
   uri:
     url: https://localhost/api/v1/config/
@@ -55,3 +59,19 @@
 
 - include_tasks: "aws.yml"
 #  when: "'tag_AWS_True' in group_names"
+
+- name: create project
+  uri:
+    url:  https://localhost/api/v1/projects/
+    method: POST
+    user: admin
+    password: "{{ towerpass }}"
+    body: "{{ lookup('file','tower_project.json') }}"
+    body_format: json
+    validate_certs: False 
+    status_code:
+      - 200
+      - 201
+      - 400
+  register: response
+  changed_when: response.status == 201

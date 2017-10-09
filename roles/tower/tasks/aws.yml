@@ -62,3 +62,19 @@
       - 400
   register: response
   changed_when: response.status == 201
+
+- name: create aws project
+  uri:
+    url:  https://localhost/api/v1/projects/
+    method: POST
+    user: admin
+    password: "{{ towerpass }}"
+    body: "{{ lookup('file','tower_aws_project.json') }}"
+    body_format: json
+    validate_certs: False 
+    status_code:
+      - 200
+      - 201
+      - 400
+  register: response
+  changed_when: response.status == 201

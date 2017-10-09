@@ -1,4 +1,0 @@
----
-- name: set route to fix bridged adapter of vagrant boxes
-  shell: route add default gw {{ vagrant_ext_gw }}
-  when: ansible_default_ipv4.gateway != vagrant_ext_gw

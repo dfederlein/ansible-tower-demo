@@ -1,7 +1,7 @@
 ---
 - name: copy ansible hosts file
   template: 
-    src: "vagrant_{{ demotype | default('lamphaproxy') }}_hosts" 
+    src: "vagrant_hosts" 
     dest: /etc/ansible/hosts
 
 - name: import inventory to Tower demo inventory
