@@ -1,31 +1,42 @@
 ---
-- name: fix un-upped ethernet adapters
-  shell: ifup eth1
+- name: check if we need to do installer things
+  uri:
+    url: https://localhost/api/v1/ping/
+    method: GET
+    user: admin
+    password: "{{ towerpass }}"
+    validate_certs: False 
+  register: checkout
+  ignore_errors: True
+
+- name: set condtional if the above didn't error
+  set_fact:
+    towerchk: "{{ checkout.json.version }}"
+  when: checkout.json is defined
 
 - name: download tower installer
   get_url:
-    url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
-    dest: /tmp/ansible-tower-setup-latest.tar.gz
+    url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-{{ towerversion }}.tar.gz
+    dest: /tmp/ansible-tower-setup-{{ towerversion }}.tar.gz
     mode: 0640
+  when: towerchk != towerversion
 
 - name: extract installer
   unarchive:
-    src: /tmp/ansible-tower-setup-latest.tar.gz
+    src: /tmp/ansible-tower-setup-{{ towerversion }}.tar.gz
     dest: /tmp/
     remote_src: True
+  when: towerchk != towerversion
 
 - name: template inventory file
   template:
     src: inventory 
     dest: /tmp/ansible-tower-setup-{{ towerversion }}/inventory 
+  when: towerchk != towerversion
 
 - name: run the tower installer
   shell: ./setup.sh chdir=/tmp/ansible-tower-setup-{{ towerversion }}
-
-- name: copy ansible hosts file
-  copy: 
-    src: hosts 
-    dest: /etc/ansible/hosts
+  when: towerchk != towerversion
 
 - name: Post license key
   uri:
@@ -36,8 +47,11 @@
     body: "{{ lookup('file','tower_license.json') }}"
     body_format: json
     validate_certs: False 
-  when: license is undefined
 
-# - name: import inventory to Tower demo inventory
-#   shell: tower-manage inventory_import --source=/etc/ansible/hosts --inventory-id=1
-#   when: license is undefined
+# These next two configure inventory and credentials depending on provisioning. 
+
+# - include_tasks: "vagrant.yml"
+#   when: "'tag_Vagrant_True' in group_names"
+
+- include_tasks: "aws.yml"
+#  when: "'tag_AWS_True' in group_names"

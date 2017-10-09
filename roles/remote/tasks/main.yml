@@ -1,9 +1,0 @@
----
-- name: fix un-upped ethernet adapters
-  shell: "ifup eth1"
-
-- name: drop sshd config in place
-  copy:
-    src: sshd_config
-    dest: /etc/ssh/sshd_config
-  notify: restart ssh 

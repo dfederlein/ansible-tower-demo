@@ -1,0 +1,129 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |cluster|
+  # All Vagrant configuration is done here. The most common configuration
+  # options are documented and commented below. For a complete reference,
+  # please see the online documentation at vagrantup.com.
+
+  # Every Vagrant virtual environment requires a box to build off of.
+
+cluster.vm.define "Tower" do |config|
+  config.vm.box = "centos/7"
+  config.ssh.insert_key = false
+  config.vm.provider :virtualbox do |vb, override|
+    vb.customize ["modifyvm", :id, "--memory", "2048"]
+    vb.customize ["modifyvm", :id, "--cpus", "2"]
+  end
+  config.vm.hostname = "Tower"
+  config.vm.network :private_network, ip: "10.42.0.42"
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "site.yml"
+    ansible.groups = {
+      "tag_Vagrant_True" => ["Tower"],
+      "tag_Vagrant_local" => ["Tower"],
+      "tag_Name_Tower" => ["Tower"],
+    }
+  end
+end
+
+cluster.vm.define "demovm1" do |config|
+  config.vm.box = "centos/7"
+  config.ssh.insert_key = false
+  config.vm.provider :virtualbox do |vb, override|
+    vb.customize ["modifyvm", :id, "--memory", "512"]
+    vb.customize ["modifyvm", :id, "--cpus", "1"]
+  end
+  config.vm.hostname = "demovm1"
+  config.vm.network :private_network, ip: "10.42.0.5"
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "site.yml"
+    ansible.groups = {
+      "tag_Vagrant_True" => ["demovm1"],
+      "tag_Vagrant_local" => ["demovm1"],
+      "tag_Name_demovm" => ["demovm1"],
+    }
+  end
+end
+
+cluster.vm.define "demovm2" do |config|
+  config.vm.box = "centos/7"
+  config.ssh.insert_key = false
+  config.vm.provider :virtualbox do |vb, override|
+    vb.customize ["modifyvm", :id, "--memory", "512"]
+    vb.customize ["modifyvm", :id, "--cpus", "1"]
+  end
+  config.vm.hostname = "demovm2"
+  config.vm.network :private_network, ip: "10.42.0.6"
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "site.yml"
+    ansible.groups = {
+      "tag_Vagrant_True" => ["demovm2"],
+      "tag_Vagrant_local" => ["demovm2"],
+      "tag_Name_demovm" => ["demovm2"],
+    }
+  end
+end
+
+cluster.vm.define "demovm3" do |config|
+  config.vm.box = "centos/7"
+  config.ssh.insert_key = false
+  config.vm.provider :virtualbox do |vb, override|
+    vb.customize ["modifyvm", :id, "--memory", "512"]
+    vb.customize ["modifyvm", :id, "--cpus", "1"]
+  end
+  config.vm.hostname = "demovm3"
+  config.vm.network :private_network, ip: "10.42.0.7"
+    mac: "080027aabbc33"
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "site.yml"
+    ansible.groups = {
+      "tag_Vagrant_True" => ["demovm3"],
+      "tag_Vagrant_local" => ["demovm3"],
+      "tag_Name_demovm" => ["demovm3"],
+    }
+  end
+end
+
+cluster.vm.define "demovm4" do |config|
+  config.vm.box = "centos/7"
+  config.ssh.insert_key = false
+  config.vm.provider :virtualbox do |vb, override|
+    vb.customize ["modifyvm", :id, "--memory", "512"]
+    vb.customize ["modifyvm", :id, "--cpus", "1"]
+  end
+  config.vm.hostname = "demovm4"
+  config.vm.network :private_network, ip: "10.42.0.8"
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "site.yml"
+    ansible.groups = {
+      "tag_Vagrant_True" => ["demovm4"],
+      "tag_Vagrant_local" => ["demovm4"],
+      "tag_Name_demovm" => ["demovm4"],
+    }
+  end
+end
+
+cluster.vm.define "demovm5" do |config|
+  config.vm.box = "centos/7"
+  config.ssh.insert_key = false
+  config.vm.provider :virtualbox do |vb, override|
+    vb.customize ["modifyvm", :id, "--memory", "512"]
+    vb.customize ["modifyvm", :id, "--cpus", "1"]
+  end
+  config.vm.hostname = "demovm5"
+  config.vm.network :private_network, ip: "10.42.0.9"
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "site.yml"
+    ansible.groups = {
+      "tag_Vagrant_True" => ["demovm5"],
+      "tag_Vagrant_local" => ["demovm5"],
+      "tag_Name_demovm" => ["demovm5"],
+    }
+  end
+end
+
+end
