@@ -2,7 +2,7 @@
     "name": "DemoProject",
     "description": "",
     "scm_type": "git",
-    "scm_url": "https://github.com/username/yourrepo.git",
+    "scm_url": "https://github.com/ansible/ansible-examples.git",
     "scm_branch": "",
     "scm_clean": true,
     "scm_delete_on_update": true,
