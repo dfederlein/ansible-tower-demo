@@ -77,6 +77,11 @@
   register: response
   changed_when: response.status == 201
 
+- name: wait for project sync
+  pause:
+    seconds: 20
+  when: response.status == 201
+
 - name: create job template
   uri:
     url:  https://localhost/api/v1/job_templates/
