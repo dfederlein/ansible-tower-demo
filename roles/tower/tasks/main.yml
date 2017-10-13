@@ -77,6 +77,15 @@
   register: response
   changed_when: response.status == 201
 
+- name: kick off project sync
+  uri:
+    url:  https://localhost/api/v2/projects/2/update
+    method: POST
+    user: admin
+    password: "{{ towerpass }}"
+    validate_certs: False
+  when: response.status == 201
+
 - name: wait for project sync
   pause:
     seconds: 20
