@@ -4,7 +4,7 @@
     "job_type": "run",
     "inventory": 2,
     "project": 7,
-    "playbook": "lamp_haproxy/aws/site.yml",
+    "playbook": "k8sdeploy.yml",
     "credential": 2,
     "vault_credential": null,
     "forks": 0,
