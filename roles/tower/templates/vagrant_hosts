@@ -25,4 +25,4 @@ demovm5 ansible_ssh_host=192.168.100.45 ansible_user=vagrant ansible_password=va
 [tag_k8s_demo:children]
 tag_k8s_masters
 tag_k8s_etcd
-mtag_k8s_inions
+tag_k8s_minions
