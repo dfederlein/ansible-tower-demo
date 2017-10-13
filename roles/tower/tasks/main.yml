@@ -77,3 +77,19 @@
   register: response
   changed_when: response.status == 201
 
+- name: create job template
+  uri:
+    url:  https://localhost/api/v1/job_templates/
+    method: POST
+    user: admin
+    password: "{{ towerpass }}"
+    body: "{{ lookup('file','tower_job_template.json') }}"
+    body_format: json
+    validate_certs: False 
+    status_code:
+      - 200
+      - 201
+      - 400
+  register: response
+  changed_when: response.status == 201
+
