@@ -107,23 +107,4 @@ cluster.vm.define "demovm4" do |config|
   end
 end
 
-cluster.vm.define "demovm5" do |config|
-  config.vm.box = "centos/7"
-  config.ssh.insert_key = false
-  config.vm.provider :virtualbox do |vb, override|
-    vb.customize ["modifyvm", :id, "--memory", "512"]
-    vb.customize ["modifyvm", :id, "--cpus", "1"]
-  end
-  config.vm.hostname = "demovm5"
-  config.vm.network :private_network, ip: "10.42.0.9"
-  config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "site.yml"
-    ansible.groups = {
-      "tag_Vagrant_True" => ["demovm5"],
-      "tag_Vagrant_local" => ["demovm5"],
-      "tag_Name_demovm" => ["demovm5"],
-    }
-  end
-end
-
 end
