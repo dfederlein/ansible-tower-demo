@@ -11,7 +11,6 @@ demovm3 ansible_ssh_host=10.42.0.7 ansible_user=vagrant ansible_password=vagrant
 
 [tag_Linux_hosts]
 demovm4 ansible_ssh_host=10.42.0.8 ansible_user=vagrant ansible_password=vagrant
-demovm5 ansible_ssh_host=10.42.0.9 ansible_user=vagrant ansible_password=vagrant
 {% elif 'tag_Vagrant_ext' in group_names %}
 [tag_k8s_hosts]
 demovm1 ansible_ssh_host=192.168.100.41 ansible_user=vagrant ansible_password=vagrant
@@ -24,7 +23,6 @@ demovm3 ansible_ssh_host=192.168.100.43 ansible_user=vagrant ansible_password=va
 
 [tag_Linux_hosts]
 demovm4 ansible_ssh_host=192.168.100.44 ansible_user=vagrant ansible_password=vagrant
-demovm5 ansible_ssh_host=192.168.100.45 ansible_user=vagrant ansible_password=vagrant
 {% endif %}
 [tag_comp_demo:children]
 tag_k8s_hosts
