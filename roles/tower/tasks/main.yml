@@ -39,8 +39,16 @@
   when: towerchk != towerversion
 
 - name: wait for tower to be up
-  pause:
-    seconds: 20
+  uri:
+    url: https://localhost/api/v1/ping/
+    method: GET
+    user: admin
+    password: "{{ towerpass }}"
+    validate_certs: False 
+  register: check2
+  until: check2.json is defined and check2.json.version == towerversion
+  retries: 10
+  delay: 30
   when: towerchk != towerversion
 
 - name: Post license key
@@ -90,11 +98,6 @@
       - 202
   when: response.status == 201
 
-- name: wait for project sync
-  pause:
-    seconds: 20
-  when: response.status == 201
-
 - name: create job template
   uri:
     url:  https://localhost/api/v1/job_templates/
@@ -107,7 +110,9 @@
     status_code:
       - 200
       - 201
-      - 400
   register: response
-  changed_when: response.status == 201
+  until: response.status == 201 or response.status == 202
+  retries: 10
+  delay: 30
+  changed_when: response.status == 201 or response.status == 202
 
