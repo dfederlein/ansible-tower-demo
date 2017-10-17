@@ -14,7 +14,6 @@ Host Machine Requirements:
 - Git 
 - An Internet connection to create the demo environment.
 - The ability to run 5 VM's on your system. 
-- Alternatively: a Cloud credential to launch into AWS/Azure(coming soon)/Google(coming soon)
 
 Ansible install instructions here: http://docs.ansible.com/intro_installation.html
 
