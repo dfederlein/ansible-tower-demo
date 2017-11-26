@@ -77,7 +77,6 @@ cluster.vm.define "demovm3" do |config|
   end
   config.vm.hostname = "demovm3"
   config.vm.network :private_network, ip: "10.42.0.7"
-    mac: "080027aabbc33"
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "site.yml"
     ansible.groups = {
