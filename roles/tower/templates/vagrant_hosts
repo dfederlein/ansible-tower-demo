@@ -1,19 +1,19 @@
 localhost ansible_connection=local ansible_user=awx
 
-[tag_lb_hosts]
+[lbservers]
 demovm1 ansible_ssh_host=172.16.2.5 ansible_user=vagrant ansible_password=vagrant
 
-[tag_web_hosts]
+[webservers]
 demovm2 ansible_ssh_host=172.16.2.6 ansible_user=vagrant ansible_password=vagrant
 
-[tag_db_hosts]
+[dbservers]
 demovm3 ansible_ssh_host=172.16.2.7 ansible_user=vagrant ansible_password=vagrant
 
-[tag_mon_hosts]
+[monitoring]
 demovm4 ansible_ssh_host=172.16.2.8 ansible_user=vagrant ansible_password=vagrant
 
 [tag_comp_demo:children]
-tag_lb_hosts
-tag_web_hosts
-tag_db_hosts
-tag_mon_hosts
+lbservers
+webservers
+dbservers
+monitoring
