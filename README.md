@@ -46,4 +46,3 @@ Now git clone this repository, cd into the directory and issue the command "vagr
 
 1. This demo is specifically tied to a repository for the playbooks Tower will run against the remote hosts: https://github.com/dfederlein/ansible-demos To change this edit roles/tower/files/tower_project.json and roles/tower/files/tower_job_template.json
 
-2. There are two Vagrantfiles included in this repo: you will need to either mv or symlink one of them as "Vagrantfile". One (vagrant-vbox-local) is designed to work locally on a laptop or desktop in a nat'ed network environment as per standard vagrant use. The other (vagrant-vbox-ext) is specifically what I use on a spare linux box on my home network running virtualbox and vagrant, and does changes to Vagrant's networking to set the default path as bridged to my LAN network. You will probably want to use vagrant-ext-local unless you have a similar setup as mine on your LAN you want to use.
