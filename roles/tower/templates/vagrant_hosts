@@ -1,29 +1,17 @@
 localhost ansible_connection=local ansible_user=awx
-{% if 'tag_Vagrant_local' in group_names %}
-[tag_k8s_hosts]
-demovm1 ansible_ssh_host=10.42.0.5 ansible_user=vagrant ansible_password=vagrant
 
-[tag_Windows_hosts]
-demovm2 ansible_ssh_host=10.42.0.6 ansible_user=vagrant ansible_password=vagrant
+[tag_lb_hosts]
+demovm1 ansible_ssh_host=172.16.2.5 ansible_user=vagrant ansible_password=vagrant
 
-[tag_Network_hosts]
-demovm3 ansible_ssh_host=10.42.0.7 ansible_user=vagrant ansible_password=vagrant
+[tag_web_hosts]
+demovm2 ansible_ssh_host=172.16.2.6 ansible_user=vagrant ansible_password=vagrant
 
-[tag_Linux_hosts]
-demovm4 ansible_ssh_host=10.42.0.8 ansible_user=vagrant ansible_password=vagrant
-{% elif 'tag_Vagrant_ext' in group_names %}
-[tag_k8s_hosts]
-demovm1 ansible_ssh_host=192.168.100.41 ansible_user=vagrant ansible_password=vagrant
+[tag_db_hosts]
+demovm3 ansible_ssh_host=172.16.2.7 ansible_user=vagrant ansible_password=vagrant
 
-[tag_Windows_hosts]
-demovm2 ansible_ssh_host=192.168.100.42 ansible_user=vagrant ansible_password=vagrant
+[tag_mon_hosts]
+demovm4 ansible_ssh_host=172.16.2.8 ansible_user=vagrant ansible_password=vagrant
 
-[tag_Network_hosts]
-demovm3 ansible_ssh_host=192.168.100.43 ansible_user=vagrant ansible_password=vagrant
-
-[tag_Linux_hosts]
-demovm4 ansible_ssh_host=192.168.100.44 ansible_user=vagrant ansible_password=vagrant
-{% endif %}
 [tag_comp_demo:children]
 tag_k8s_hosts
 tag_Network_hosts
