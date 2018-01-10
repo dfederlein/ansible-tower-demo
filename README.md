@@ -8,9 +8,9 @@ Ansible Tower Demo-In-A-Box
 Host Machine Requirements:
 
 - Tested with linux (EL/LTS) and macOS
-- Ansible (version 2.3.2 or later)
+- Ansible (version 2.4.2 or later)
 - Vagrant (version 2 or later)
-- VirtualBox (version 5.1 or later)
+- VirtualBox (version 5.2 or later)
 - Git 
 - An Internet connection to create the demo environment.
 - The ability to run 5 VM's on your system. 
