@@ -3,7 +3,6 @@
 
 VAGRANTFILE_API_VERSION = "2"
 
-
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |cluster|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
@@ -19,7 +18,7 @@ cluster.vm.define "tower" do |config|
     vb.customize ["modifyvm", :id, "--cpus", "2"]
   end
   config.vm.hostname = "tower"
-  config.vm.network :private_network, ip: "10.42.0.42"
+  config.vm.network :private_network, ip: "172.16.2.42"
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "site.yml"
     ansible.groups = {
@@ -38,7 +37,7 @@ cluster.vm.define "demovm1" do |config|
     vb.customize ["modifyvm", :id, "--cpus", "1"]
   end
   config.vm.hostname = "demovm1"
-  config.vm.network :private_network, ip: "10.42.0.5"
+  config.vm.network :private_network, ip: "172.16.2.5"
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "site.yml"
     ansible.groups = {
@@ -57,7 +56,7 @@ cluster.vm.define "demovm2" do |config|
     vb.customize ["modifyvm", :id, "--cpus", "1"]
   end
   config.vm.hostname = "demovm2"
-  config.vm.network :private_network, ip: "10.42.0.6"
+  config.vm.network :private_network, ip: "172.16.2.6"
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "site.yml"
     ansible.groups = {
@@ -76,7 +75,7 @@ cluster.vm.define "demovm3" do |config|
     vb.customize ["modifyvm", :id, "--cpus", "1"]
   end
   config.vm.hostname = "demovm3"
-  config.vm.network :private_network, ip: "10.42.0.7"
+  config.vm.network :private_network, ip: "172.16.2.7"
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "site.yml"
     ansible.groups = {
@@ -95,7 +94,7 @@ cluster.vm.define "demovm4" do |config|
     vb.customize ["modifyvm", :id, "--cpus", "1"]
   end
   config.vm.hostname = "demovm4"
-  config.vm.network :private_network, ip: "10.42.0.8"
+  config.vm.network :private_network, ip: "172.16.2.8"
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "site.yml"
     ansible.groups = {
