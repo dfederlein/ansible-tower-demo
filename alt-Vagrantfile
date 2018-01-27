@@ -21,7 +21,7 @@ cluster.vm.define "tower" do |config|
   config.vm.network :public_network, 
     use_dhcp_assigned_default_route: true,
     bridge: "eno2",
-    mac: "080027aabbcc",
+    mac: "080027aabbcc"
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "site.yml"
     ansible.groups = {
