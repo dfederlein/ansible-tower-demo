@@ -65,7 +65,7 @@ cluster.vm.define "demovm2" do |config|
   config.vm.network :public_network, 
     use_dhcp_assigned_default_route: true,
     bridge: "eno2",
-    mac: "080027aabbc22"
+    mac: "080027aabb22"
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "site.yml"
     ansible.groups = {
@@ -87,7 +87,7 @@ cluster.vm.define "demovm3" do |config|
   config.vm.network :public_network, 
     use_dhcp_assigned_default_route: true,
     bridge: "eno2",
-    mac: "080027aabbc33"
+    mac: "080027aabb33"
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "site.yml"
     ansible.groups = {
