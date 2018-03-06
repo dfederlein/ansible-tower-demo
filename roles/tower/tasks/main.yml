@@ -1,11 +1,11 @@
 ---
 - name: check if we need to do installer things
   uri:
-    url: https://localhost/api/v1/ping/
+    url: https://localhost/api/v2/ping/
     method: GET
     user: admin
     password: "{{ towerpass }}"
-    validate_certs: False 
+    validate_certs: False
   register: checkout
   ignore_errors: True
 
@@ -30,8 +30,8 @@
 
 - name: template inventory file
   template:
-    src: inventory 
-    dest: /tmp/ansible-tower-setup-{{ towerversion }}/inventory 
+    src: inventory
+    dest: /tmp/ansible-tower-setup-{{ towerversion }}/inventory
   when: towerchk != towerversion
 
 - name: run the tower installer
@@ -40,11 +40,11 @@
 
 - name: wait for tower to be up
   uri:
-    url: https://localhost/api/v1/ping/
+    url: https://localhost/api/v2/ping/
     method: GET
     user: admin
     password: "{{ towerpass }}"
-    validate_certs: False 
+    validate_certs: False
   register: check2
   until: check2.json is defined and check2.json.version == towerversion
   retries: 10
@@ -53,15 +53,15 @@
 
 - name: Post license key
   uri:
-    url: https://localhost/api/v1/config/
+    url: https://localhost/api/v2/config/
     method: POST
     user: admin
     password: "{{ towerpass }}"
     body: "{{ lookup('file','tower_license.json') }}"
     body_format: json
-    validate_certs: False 
+    validate_certs: False
 
-# These next two configure inventory and credentials depending on provisioning. 
+# These next two configure inventory and credentials depending on provisioning.
 
 - include_tasks: "vagrant.yml"
   when: "'tag_Vagrant_True' in group_names"
@@ -71,13 +71,13 @@
 
 - name: create project
   uri:
-    url:  https://localhost/api/v1/projects/
+    url:  https://localhost/api/v2/projects/
     method: POST
     user: admin
     password: "{{ towerpass }}"
     body: "{{ lookup('file','tower_project.json') }}"
     body_format: json
-    validate_certs: False 
+    validate_certs: False
     status_code:
       - 200
       - 201
@@ -87,7 +87,7 @@
 
 - name: kick off project sync
   uri:
-    url:  https://localhost/api/v1/projects/7/update/
+    url:  https://localhost/api/v2/projects/7/update/
     method: POST
     user: admin
     password: "{{ towerpass }}"
@@ -100,13 +100,13 @@
 
 - name: create job template
   uri:
-    url:  https://localhost/api/v1/job_templates/
+    url:  https://localhost/api/v2/job_templates/
     method: POST
     user: admin
     password: "{{ towerpass }}"
     body: "{{ lookup('file','tower_job_template.json') }}"
     body_format: json
-    validate_certs: False 
+    validate_certs: False
     status_code:
       - 200
       - 201
@@ -115,4 +115,3 @@
   retries: 10
   delay: 30
   changed_when: response.status == 201 or response.status == 202
-

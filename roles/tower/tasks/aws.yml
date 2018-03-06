@@ -3,13 +3,13 @@
 
 - name: create aws ssh machine credential
   uri:
-    url: https://localhost/api/v1/credentials/
+    url: https://localhost/api/v2/credentials/
     method: POST
     user: admin
     password: "{{ towerpass }}"
     body: "{{ lookup('file','tower_aws_machine_credential.json') }}"
     body_format: json
-    validate_certs: False 
+    validate_certs: False
     status_code:
       - 200
       - 201
@@ -18,13 +18,13 @@
 
 - name: create aws cloud credential
   uri:
-    url: https://localhost/api/v1/credentials/
+    url: https://localhost/api/v2/credentials/
     method: POST
     user: admin
     password: "{{ towerpass }}"
     body: "{{ lookup('file','tower_aws_cloud_credential.json') }}"
     body_format: json
-    validate_certs: False 
+    validate_certs: False
     status_code:
       - 200
       - 201
@@ -33,13 +33,13 @@
 
 - name: create aws inventory
   uri:
-    url: https://localhost/api/v1/inventories/
+    url: https://localhost/api/v2/inventories/
     method: POST
     user: admin
     password: "{{ towerpass }}"
     body: "{{ lookup('file','tower_aws_inventory.json') }}"
     body_format: json
-    validate_certs: False 
+    validate_certs: False
     status_code:
       - 200
       - 201
@@ -49,17 +49,16 @@
 
 - name: create aws inventory source
   uri:
-    url:  https://localhost/api/v1/inventories/2/inventory_sources/
+    url:  https://localhost/api/v2/inventories/2/inventory_sources/
     method: POST
     user: admin
     password: "{{ towerpass }}"
     body: "{{ lookup('file','tower_aws_inventory_source.json') }}"
     body_format: json
-    validate_certs: False 
+    validate_certs: False
     status_code:
       - 200
       - 201
       - 400
   register: response
   changed_when: response.status == 201
-

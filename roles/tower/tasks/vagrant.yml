@@ -1,18 +1,18 @@
 ---
 - name: copy ansible hosts file
-  template: 
-    src: "vagrant_hosts" 
+  template:
+    src: "vagrant_hosts"
     dest: /etc/ansible/hosts
 
 - name: create vagrant inventory
   uri:
-    url: https://localhost/api/v1/inventories/
+    url: https://localhost/api/v2/inventories/
     method: POST
     user: admin
     password: "{{ towerpass }}"
     body: "{{ lookup('file','tower_vagrant_inventory.json') }}"
     body_format: json
-    validate_certs: False 
+    validate_certs: False
     status_code:
       - 200
       - 201
@@ -25,13 +25,13 @@
 
 - name: create vagrant ssh machine credential
   uri:
-    url: https://localhost/api/v1/credentials/
+    url: https://localhost/api/v2/credentials/
     method: POST
     user: admin
     password: "{{ towerpass }}"
     body: "{{ lookup('file','tower_vagrant_machine_credential.json') }}"
     body_format: json
-    validate_certs: False 
+    validate_certs: False
     status_code:
       - 200
       - 201
