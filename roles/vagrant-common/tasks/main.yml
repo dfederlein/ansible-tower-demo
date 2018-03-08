@@ -3,6 +3,9 @@
 - name: install network tools
   yum: name=net-tools state=present
 
+- name: set default route
+  shell: route add default gw 172.16.2.1
+
 - name: place authorized keys file
   authorized_key:  
     user: vagrant

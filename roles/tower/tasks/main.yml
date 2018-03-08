@@ -108,7 +108,7 @@
     group: awx
     mode: 0400 
 
-- name: template the bashrc file for awx user
+- name: template the bash profile file for awx user
   template: 
     src: "bash_profile"
     dest: /var/lib/awx/.bash_profile
@@ -162,3 +162,4 @@
   retries: 10
   delay: 30
   changed_when: response.status == 201 or response.status == 202
+ 
