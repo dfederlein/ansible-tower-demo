@@ -1,16 +1,16 @@
 localhost ansible_connection=local ansible_user=awx
 
 [lbservers]
-demovm1 ansible_ssh_host=172.16.2.5 ansible_user=vagrant
+demovm1 ansible_ssh_host=172.16.2.5 ansible_user=vagrant ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
 
 [webservers]
-demovm2 ansible_ssh_host=172.16.2.6 ansible_user=vagrant
+demovm2 ansible_ssh_host=172.16.2.6 ansible_user=vagrant ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
 
 [dbservers]
-demovm3 ansible_ssh_host=172.16.2.7 ansible_user=vagrant
+demovm3 ansible_ssh_host=172.16.2.7 ansible_user=vagrant ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
 
 [monitoring]
-demovm4 ansible_ssh_host=172.16.2.8 ansible_user=vagrant
+demovm4 ansible_ssh_host=172.16.2.8 ansible_user=vagrant ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
 
 [demo:children]
 lbservers
