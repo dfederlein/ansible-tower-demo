@@ -1,7 +1,7 @@
 localhost ansible_connection=local ansible_user=awx
 
 [lbservers]
-demovm1 ansible_ssh_host=172.16.2.5 ansible_user=vagrant 
+demovm1 ansible_ssh_host=172.16.2.5 ansible_user=vagrant
 
 [webservers]
 demovm2 ansible_ssh_host=172.16.2.6 ansible_user=vagrant
