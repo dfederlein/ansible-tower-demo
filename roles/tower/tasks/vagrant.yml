@@ -37,3 +37,19 @@
       - 201
   register: response
   changed_when: response.status == 201
+
+- name: place private ssh key file
+  get_url: 
+    url: https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant
+    dest: /var/lib/awx/.ssh/id_rsa
+    owner: awx
+    group: awx
+    mode: 0400 
+
+- name: template the bashrc file for awx user
+  template: 
+    src: "bash_profile"
+    dest: /var/lib/awx/.bash_profile
+    owner: awx
+    group: awx
+    mode: 0644

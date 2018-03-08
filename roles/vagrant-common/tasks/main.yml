@@ -11,8 +11,3 @@
   with_items:
     - https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub
     # - https://github.com/dfederlein.keys  # Place your keys' URL or file location here
-
-# # Next only needed if using the "vagrant-remote" vagrantfile. Fixes default route on bridged adapters in vagrant.
-# - name: set route to fix bridged adapter of vagrant boxes 
-#   shell: route add default gw {{ vagrant_ext_gw }}
-#   when: ansible_default_ipv4.gateway != vagrant_ext_gw and 'tag_Vagrant_ext' in group_names
