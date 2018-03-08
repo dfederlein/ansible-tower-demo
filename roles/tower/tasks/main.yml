@@ -61,13 +61,60 @@
     body_format: json
     validate_certs: False
 
-# These next two configure inventory and credentials depending on provisioning.
+- name: copy ansible hosts file
+  template:
+    src: "vagrant_hosts"
+    dest: /etc/ansible/hosts
 
-- include_tasks: "vagrant.yml"
-  when: "'tag_Vagrant_True' in group_names"
+- name: create vagrant inventory
+  uri:
+    url: https://localhost/api/v2/inventories/
+    method: POST
+    user: admin
+    password: "{{ towerpass }}"
+    body: "{{ lookup('file','tower_vagrant_inventory.json') }}"
+    body_format: json
+    validate_certs: False
+    status_code:
+      - 200
+      - 201
+      - 400
+  register: response
+  changed_when: response.status == 201
 
-- include_tasks: "aws.yml"
-  when: "'tag_AWS_True' in group_names"
+- name: import inventory to Tower demo inventory
+  shell: tower-manage inventory_import --source=/etc/ansible/hosts --inventory-id=2
+
+- name: create vagrant ssh machine credential
+  uri:
+    url: https://localhost/api/v2/credentials/
+    method: POST
+    user: admin
+    password: "{{ towerpass }}"
+    body: "{{ lookup('file','tower_vagrant_machine_credential.json') }}"
+    body_format: json
+    validate_certs: False
+    status_code:
+      - 200
+      - 201
+  register: response
+  changed_when: response.status == 201
+
+- name: place private ssh key file
+  get_url: 
+    url: https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant
+    dest: /var/lib/awx/.ssh/id_rsa
+    owner: awx
+    group: awx
+    mode: 0400 
+
+- name: template the bashrc file for awx user
+  template: 
+    src: "bash_profile"
+    dest: /var/lib/awx/.bash_profile
+    owner: awx
+    group: awx
+    mode: 0644
 
 - name: create project
   uri:
