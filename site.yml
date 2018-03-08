@@ -4,7 +4,7 @@
   become: true
 
   roles:
-    - { role: vagrant-common, when: "'tag_Vagrant_True' in group_names"}
+    - vagrant-common
     - { role: tower, when: "'tag_Name_Tower' in group_names" }
 
 
