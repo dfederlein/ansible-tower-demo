@@ -8,6 +8,6 @@
 # Vagrant stuff
 /.vagrant
 
-# Ansible garbage
+# Ansible 
 /.ansible
 *.retry
