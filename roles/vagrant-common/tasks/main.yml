@@ -13,4 +13,3 @@
     key: '{{ item }}'
   with_items:
     - https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub
-    # - https://github.com/dfederlein.keys  # Place your keys' URL or file location here
