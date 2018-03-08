@@ -3,17 +3,6 @@
 - name: install network tools
   yum: name=net-tools state=present
 
-- name: set default route
-  shell: route add default gw 172.16.2.1
-
-- name: network change so check to hit github 
-  uri:
-    url: https://raw.githubusercontent.com/dfederlein/ansible-tower-demo/master/test
-  register: response 
-  until: response == 250
-  retries: 10
-  delay: 30
-
 - name: place authorized keys file
   authorized_key:  
     user: vagrant
