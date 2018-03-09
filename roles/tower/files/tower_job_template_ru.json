@@ -1,10 +1,10 @@
 {
-    "name": "PFN Demo Template",
+    "name": "PFN Rolling Update Demo Template",
     "description": "",
     "job_type": "run",
     "inventory": 2,
     "project": 7,
-    "playbook": "srolling_update.yml",
+    "playbook": "rolling_update.yml",
     "credential": 2,
     "vault_credential": null,
     "forks": 0,
