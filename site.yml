@@ -2,6 +2,8 @@
 - name: Provision Demo Environment
   hosts: all
   become: true
+  vars:
+    towerpass: password1
 
   roles:
     - vagrant-common

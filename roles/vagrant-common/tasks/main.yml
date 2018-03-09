@@ -1,5 +1,6 @@
 ---
 # tasks file for common
+
 - name: install network tools
   yum: name=net-tools state=present
 
@@ -10,3 +11,7 @@
     key: '{{ item }}'
   with_items:
     - https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub
+
+- name: kick off the provisioning job template
+  shell:  "curl -f -H 'Content-Type: application/json' -XPOST --user admin:{{ towerpass }} https://172.16.2.42/api/v2/job_templates/8/launch/ --insecure"
+  when: inventory_hostname == 'demovm4'
