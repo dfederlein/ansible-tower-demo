@@ -145,13 +145,31 @@
       - 202
   when: response.status == 201
 
-- name: create job template
+- name: create initial deploy job template
   uri:
     url:  https://localhost/api/v2/job_templates/
     method: POST
     user: admin
     password: "{{ towerpass }}"
     body: "{{ lookup('file','tower_job_template.json') }}"
+    body_format: json
+    validate_certs: False
+    status_code:
+      - 200
+      - 201
+  register: response
+  until: response.status == 201 or response.status == 202
+  retries: 10
+  delay: 30
+  changed_when: response.status == 201 or response.status == 202
+ 
+- name: create rolling update job template
+  uri:
+    url:  https://localhost/api/v2/job_templates/
+    method: POST
+    user: admin
+    password: "{{ towerpass }}"
+    body: "{{ lookup('file','tower_job_template_ru.json') }}"
     body_format: json
     validate_certs: False
     status_code:
