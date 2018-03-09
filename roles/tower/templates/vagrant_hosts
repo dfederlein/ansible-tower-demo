@@ -1,9 +1,7 @@
 localhost ansible_connection=local ansible_user=awx
 
-[lbservers]
-demovm1 ansible_ssh_host=172.16.2.5 ansible_user=vagrant ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
-
 [webservers]
+demovm1 ansible_ssh_host=172.16.2.5 ansible_user=vagrant ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
 demovm2 ansible_ssh_host=172.16.2.6 ansible_user=vagrant ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
 
 [dbservers]
