@@ -10,7 +10,7 @@
     "forks": 0,
     "limit": "",
     "verbosity": 0,
-    "extra_vars": "",
+    "extra_vars": "webapp_version: 3fcc70c897d9385d8bf3cfb2dbede8a2b26158fd",
     "job_tags": "",
     "force_handlers": false,
     "skip_tags": "",
