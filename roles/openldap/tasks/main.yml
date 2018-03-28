@@ -1,0 +1,66 @@
+---
+# tasks file for openldap
+- name: Install OpenLDAP Client and Server
+  yum:
+    name:
+     - openldap-servers
+     - openldap-clients
+     - python-ldap
+    state: present
+
+- name: Enable OpenLDAP Service
+  service:
+    name: slapd
+    enabled: True
+    state: started
+
+- name: Copy configuration ldif
+  copy:
+    src: passwords.ldif
+    dest: /home/vagrant/passwords.ldif
+
+- name: Apply Password configuration
+  command: >
+    ldapmodify -Y EXTERNAL -H ldapi://
+    -f /home/vagrant/passwords.ldif
+
+- name: Create Root DN
+  ldap_entry:
+    dn: "{{ ldap_suffix }}"
+    bind_dn: 'cn={{ ldap_db_root_user_cn }},{{ ldap_suffix }}'
+    bind_pw: '{{ ldap_db_root_pw }}'
+    state: present
+    objectClass:
+      - "dcObject"
+      - "organization"
+      - "top"
+    attributes:
+      dc: "example"
+      o: "Example Org"
+
+- name: Make sure toplevel OUs exist
+  ldap_entry:
+    bind_dn: 'cn={{ ldap_db_root_user_cn }},{{ ldap_suffix }}'
+    bind_pw: '{{ ldap_db_root_pw }}'
+    dn: "{{ item }},{{ ldap_suffix }}"
+    objectClass:
+      - "organizationalUnit"
+      - "top"
+    attributes:
+      ou: "{{ item }}"
+    state: present
+  with_items: "{{ toplevelOUs }}"
+
+- name: Create Ansible Tower User
+  ldap_entry:
+    dn: "cn=tower,ou=applications,{{ ldap_suffix }}"
+    bind_dn: 'cn={{ ldap_db_root_user_cn }},{{ ldap_suffix }}'
+    bind_pw: '{{ ldap_db_root_pw }}'
+    objectClass:
+      - "person"
+      - "top"
+    attributes:
+      userPassword: 'password1'
+      sn: Tower
+      cn: Tower
+    state: present

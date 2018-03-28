@@ -1,0 +1,12 @@
+---
+# vars file for openldap
+ldap_suffix: 'dc=example,dc=com'
+ldap_root_user: 'cn=admin,cn=config'
+ldap_root_pw: 'password1'
+ldap_db_root_user_cn: 'manager'
+ldap_db_root_pw: 'password1'
+
+toplevelOUs:
+  - ou=people
+  - ou=applications
+  - ou=groups
