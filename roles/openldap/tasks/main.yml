@@ -24,11 +24,26 @@
     ldapmodify -Y EXTERNAL -H ldapi://
     -f /home/vagrant/passwords.ldif
 
+- name: Add Schemas
+  command: >
+    ldapadd -Y EXTERNAL -H ldapi://
+    -f /etc/openldap/schema/{{ item }}.ldif
+  with_items:
+    - cosine
+    - inetorgperson
+
+- name: Create ACLs to Allow Auth and Queries
+  ldap_attr:
+    dn: 'olcDatabase={2}hdb,cn=config'
+    name: olcAccess
+    values: "{{ ldap_acls }}"
+    state: exact
+
 - name: Create Root DN
   ldap_entry:
-    dn: "{{ ldap_suffix }}"
     bind_dn: 'cn={{ ldap_db_root_user_cn }},{{ ldap_suffix }}'
     bind_pw: '{{ ldap_db_root_pw }}'
+    dn: "{{ ldap_suffix }}"
     state: present
     objectClass:
       - "dcObject"
@@ -53,9 +68,9 @@
 
 - name: Create Ansible Tower User
   ldap_entry:
-    dn: "cn=tower,ou=applications,{{ ldap_suffix }}"
     bind_dn: 'cn={{ ldap_db_root_user_cn }},{{ ldap_suffix }}'
     bind_pw: '{{ ldap_db_root_pw }}'
+    dn: "cn=tower,ou=applications,{{ ldap_suffix }}"
     objectClass:
       - "person"
       - "top"
@@ -63,4 +78,37 @@
       userPassword: 'password1'
       sn: Tower
       cn: Tower
+    state: present
+
+- name: Create A Test User
+  ldap_entry:
+    bind_dn: 'cn={{ ldap_db_root_user_cn }},{{ ldap_suffix }}'
+    bind_pw: '{{ ldap_db_root_pw }}'
+    dn: "uid=testuser1,ou=people,{{ ldap_suffix }}"
+    objectClass:
+      - "inetOrgPerson"
+      - "person"
+      - "organizationalPerson"
+      - "top"
+    attributes:
+      userPassword: 'password1'
+      sn: Testuser
+      cn: TestUser
+      uid: testuser1
+      userPassword: password1
+      mail: 'testuser@example.com'
+    state: present
+
+- name: Create A Test Group
+  ldap_entry:
+    bind_dn: 'cn={{ ldap_db_root_user_cn }},{{ ldap_suffix }}'
+    bind_pw: '{{ ldap_db_root_pw }}'
+    dn: "cn=testgroup,ou=groups,{{ ldap_suffix }}"
+    objectClass:
+      - "groupOfNames"
+      - "top"
+    attributes:
+      cn: testgroup
+      member:
+        - 'uid=testuser1,ou=people,dc=example,dc=com'
     state: present

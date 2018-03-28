@@ -111,7 +111,7 @@ cluster.vm.define "ldapvm" do |config|
     vb.customize ["modifyvm", :id, "--cpus", "1"]
   end
   config.vm.hostname = "ldapvm"
-  config.vm.network :private_network, ip: "172.16.2.8"
+  config.vm.network :private_network, ip: "172.16.2.9"
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "site.yml"
     ansible.groups = {
