@@ -11,9 +11,9 @@ Host Machine Requirements:
 - Ansible (version 2.4.2 or later)
 - Vagrant (version 2 or later)
 - VirtualBox (version 5.2 or later)
-- Git 
+- Git
 - An Internet connection to create the demo environment.
-- The ability to run 5 VM's on your system. 
+- The ability to run 6 VM's on your system.
 
 Ansible install instructions here: http://docs.ansible.com/intro_installation.html
 
@@ -41,6 +41,44 @@ Now git clone this repository, cd into the directory and issue the command "vagr
 4. install the git client per your distro's package management.
 
 Now git clone this repository, cd into the directory and issue the command "vagrant up".
+
+## LDAP Authentication
+
+This Vagrantfile will create one OpenLDAP VM for use in experimenting with authentication. Note that you will have to supply an enterprise license to configure authentication.
+
+IP: `172.16.2.9`
+
+Bind DN: `cn=tower,ou=applications,dc=example,dc=com`
+
+Bind DN Password: `password1`
+
+Base DN: `dc=example,dc=com`
+
+User Search:
+
+```
+[
+"ou=people,dc=example,dc=com",
+"SCOPE_SUBTREE",
+"(uid=%(user)s)"
+]
+```
+Group Search:
+```
+[
+ "ou=groups,dc=example,dc=com",
+ "SCOPE_SUBTREE",
+ "(objectClass=groupOfNames)"
+]
+```
+Attribute Map:
+```
+{
+"first_name": "givenName",
+"last_name": "sn",
+"email": "mail"
+}
+```
 
 ### Notes:
 

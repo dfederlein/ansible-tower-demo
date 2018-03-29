@@ -92,8 +92,9 @@
       - "top"
     attributes:
       userPassword: 'password1'
-      sn: Testuser
+      sn: User
       cn: TestUser
+      givenName: Test
       uid: testuser1
       userPassword: password1
       mail: 'testuser@example.com'
