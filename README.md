@@ -42,6 +42,8 @@ Now git clone this repository, cd into the directory and issue the command "vagr
 
 Now git clone this repository, cd into the directory and issue the command "vagrant up".
 
+**Note:** Please do not try to provision this in parallel in Vagrant. Ordering needs to happen specifically so LDAP comes up first and Tower comes up before the rest of the inventory.
+
 ## LDAP Authentication (OPTIONAL)
 
 This Vagrantfile will create one OpenLDAP VM for use in experimenting with authentication. 
