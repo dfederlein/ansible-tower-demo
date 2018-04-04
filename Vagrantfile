@@ -9,24 +9,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |cluster|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-cluster.vm.define "tower" do |config|
-  config.vm.box = "centos/7"
-  config.ssh.insert_key = false
-  config.vm.provider :virtualbox do |vb, override|
-    vb.customize ["modifyvm", :id, "--memory", "2048"]
-    vb.customize ["modifyvm", :id, "--cpus", "2"]
-  end
-  config.vm.hostname = "tower"
-  config.vm.network :private_network, ip: "172.16.2.42"
-  config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "site.yml"
-    ansible.groups = {
-      "tag_Vagrant_True" => ["tower"],
-      "tag_Vagrant_local" => ["tower"],
-      "tag_Name_Tower" => ["tower"],
-    }
-  end
-end
 
 cluster.vm.define "demovm1" do |config|
   config.vm.box = "centos/7"
@@ -119,6 +101,25 @@ cluster.vm.define "ldapvm" do |config|
       "tag_Vagrant_True" => ["ldapvm"],
       "tag_Vagrant_local" => ["ldapvm"],
       "tag_Name_ldapvm" => ["ldapvm"],
+    }
+  end
+end
+
+cluster.vm.define "tower" do |config|
+  config.vm.box = "centos/7"
+  config.ssh.insert_key = false
+  config.vm.provider :virtualbox do |vb, override|
+    vb.customize ["modifyvm", :id, "--memory", "2048"]
+    vb.customize ["modifyvm", :id, "--cpus", "2"]
+  end
+  config.vm.hostname = "tower"
+  config.vm.network :private_network, ip: "172.16.2.42"
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "site.yml"
+    ansible.groups = {
+      "tag_Vagrant_True" => ["tower"],
+      "tag_Vagrant_local" => ["tower"],
+      "tag_Name_Tower" => ["tower"],
     }
   end
 end
