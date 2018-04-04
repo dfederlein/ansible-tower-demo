@@ -7,7 +7,7 @@ Ansible Tower Demo-In-A-Box
 
 Host Machine Requirements:
 
-- Tested with linux (EL/LTS) and macOS
+- Tested with Fedora 27 and macOS
 - Ansible (version 2.4.2 or later)
 - Vagrant (version 2 or later)
 - VirtualBox (version 5.2 or later)
