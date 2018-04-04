@@ -44,7 +44,7 @@ Now git clone this repository, cd into the directory and issue the command "vagr
 
 ## LDAP Authentication
 
-This Vagrantfile will create one OpenLDAP VM for use in experimenting with authentication. Note that you will have to supply an enterprise license to configure authentication.
+This Vagrantfile will create one OpenLDAP VM for use in experimenting with authentication. Note that you will have to supply an enterprise license to configure authentication and define "ldaplicense: True" in the vars section of site.yml.
 
 IP: `172.16.2.9`
 
