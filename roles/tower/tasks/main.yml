@@ -129,8 +129,8 @@
       - 200
       - 201
       - 400
-  register: response
-  changed_when: response.status == 201
+  register: responseproj
+  changed_when: responseproj.status == 201
 
 - name: create initial deploy job template
   uri:
@@ -144,11 +144,13 @@
     status_code:
       - 200
       - 201
+      - 202
   register: response
   until: response.status == 201 or response.status == 202
   retries: 10
   delay: 30
   changed_when: response.status == 201 or response.status == 202
+  when: responseproj.status == 201
  
 - name: create rolling update job template
   uri:
@@ -162,9 +164,30 @@
     status_code:
       - 200
       - 201
+      - 202
   register: response
   until: response.status == 201 or response.status == 202
   retries: 10
   delay: 30
   changed_when: response.status == 201 or response.status == 202
- 
+  when: responseproj.status == 201
+
+- name: create LDAP config
+  uri:
+    url:  https://localhost/api/v2/settings/ldap/
+    method: POST
+    user: admin
+    password: "{{ towerpass }}"
+    body: "{{ lookup('file','tower_ldap_config.json') }}"
+    body_format: json
+    validate_certs: False
+    status_code:
+      - 200
+      - 201
+      - 202
+  register: response
+  until: response.status == 201 or response.status == 202
+  retries: 10
+  delay: 30
+  changed_when: response.status == 201 or response.status == 202
+  when: ldaplicense == True
