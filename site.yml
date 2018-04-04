@@ -8,6 +8,6 @@
   roles:
     - vagrant-common
     - { role: tower, when: "'tag_Name_Tower' in group_names" }
-    - { role: openldap, when: "'tag_Name_ldapvm' in group_names" }
+    - { role: openldap, when: "'tag_Name_ldapvm' in group_names" and "'ldap_demo' == True" }
 
 
