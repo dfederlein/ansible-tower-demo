@@ -13,7 +13,7 @@ Ansible Tower Demo-In-A-Box
 
 3. This demo is specifically tied to a repository for the playbooks Tower will run against the remote hosts: https://github.com/dfederlein/ansible-demos To change this edit roles/tower/files/tower_project.json and roles/tower/files/tower_job_template.json
 
-4. You will have to supply an enterprise license to configure LDAP authentication. Place your license file in roles/tower/files/tower_license.json and make sure you have added "eula_accepted": "True" as the last line in the json blob, as well and define "ldaplicense: True" in the vars section of site.yml.
+4. You will have to supply an enterprise license to configure LDAP authentication. Place your license file in roles/tower/files/tower_license.json and make sure you have added "eula_accepted": "True" as the last line in the json blob. Also be sure to define "ldaplicense: True" in the vars section of site.yml.
 
 Host Machine Requirements:
 
