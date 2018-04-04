@@ -46,7 +46,7 @@ Now git clone this repository, cd into the directory and issue the command "vagr
 
 This Vagrantfile will create one OpenLDAP VM for use in experimenting with authentication. 
 
-***Note:*** that you will have to supply an enterprise license to configure LDAP authentication. Place your license file in roles/tower/files/tower_license.json and make sure you have added "eula_accepted": "True" as the last line in the json blob, as well and define "ldaplicense: True" in the vars section of site.yml.
+***Note:***  You will have to supply an enterprise license to configure LDAP authentication. Place your license file in roles/tower/files/tower_license.json and make sure you have added "eula_accepted": "True" as the last line in the json blob, as well and define "ldaplicense: True" in the vars section of site.yml.
 
 Settings in Tower will need to be as follows to demonstrate basic functionality:
 
