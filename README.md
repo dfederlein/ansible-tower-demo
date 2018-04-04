@@ -19,7 +19,9 @@ Ansible install instructions here: http://docs.ansible.com/intro_installation.ht
 
 To install Vagrant and VirtualBox, please see http://docs.vagrantup.com/ and https://www.virtualbox.org/wiki/Downloads
 
-**Note:** The demo requires an internet connection on your host machine.
+**Note 1:** The demo requires an internet connection on your host machine.
+
+**Note 2:** Please do not try to provision this in parallel in Vagrant. Ordering needs to happen specifically so LDAP comes up first and Tower comes up before the rest of the inventory.
 
 ## Install Instructions for macOS:
 
@@ -41,8 +43,6 @@ Now git clone this repository, cd into the directory and issue the command "vagr
 4. install the git client per your distro's package management.
 
 Now git clone this repository, cd into the directory and issue the command "vagrant up".
-
-**Note:** Please do not try to provision this in parallel in Vagrant. Ordering needs to happen specifically so LDAP comes up first and Tower comes up before the rest of the inventory.
 
 ## LDAP Authentication (OPTIONAL)
 
