@@ -8,5 +8,5 @@
 
   roles:
     - { role: vagrant-common, when "'tag_Vagrant_True' in group_names" }
-    - { role: openldap, when: "'tag_Name_ldapvm' in group_names and 'ldaplicense' == True" }
+    - { role: openldap, when: "'tag_Name_ldapvm' in group_names and ldaplicense == True" }
     - { role: tower, when: "'tag_Name_Tower' in group_names" }
