@@ -1,0 +1,17 @@
+---
+# vars file for openldap
+ldap_suffix: 'dc=example,dc=com'
+ldap_root_user: 'cn=admin,cn=config'
+ldap_root_pw: 'password1'
+ldap_db_root_user_cn: 'manager'
+ldap_db_root_pw: 'password1'
+
+toplevelOUs:
+  - ou=people
+  - ou=applications
+  - ou=groups
+
+ldap_acls:
+   - to attrs=userPassword by anonymous auth
+   - to dn.subtree="dc=example,dc=com" by dn.base="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage by users read
+   - to * by self read
