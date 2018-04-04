@@ -13,4 +13,4 @@
 *.retry
 
 # License things
-./roles/tower/files/tower_license.json
+roles/tower/files/tower_license.json
