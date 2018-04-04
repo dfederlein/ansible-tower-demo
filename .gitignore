@@ -11,6 +11,3 @@
 # Ansible 
 /.ansible
 *.retry
-
-# License things
-roles/tower/files/tower_license.json
