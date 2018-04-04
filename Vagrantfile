@@ -103,6 +103,7 @@ cluster.vm.define "demovm4" do |config|
     }
   end
 end
+
 cluster.vm.define "ldapvm" do |config|
   config.vm.box = "centos/7"
   config.ssh.insert_key = false
