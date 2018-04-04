@@ -175,7 +175,7 @@
 - name: create LDAP config
   uri:
     url:  https://localhost/api/v2/settings/ldap/
-    method: POST
+    method: PUT
     user: admin
     password: "{{ towerpass }}"
     body: "{{ lookup('file','tower_ldap_config.json') }}"
@@ -184,10 +184,9 @@
     status_code:
       - 200
       - 201
-      - 202
   register: response
-  until: response.status == 201 or response.status == 202
+  until: response.status == 200 or response.status == 201
   retries: 10
   delay: 30
-  changed_when: response.status == 201 or response.status == 202
+  changed_when: response.status == 200 or response.status == 201
   when: ldaplicense == True
