@@ -5,6 +5,16 @@ Ansible Tower Demo-In-A-Box
 
 ## This is a Tower demo environment in a box using Vagrant and VirtualBox.
 
+### Notes:
+
+1. The demo requires an internet connection on your host machine.
+
+2. Please do not try to provision this in parallel in Vagrant. Ordering needs to happen specifically so LDAP comes up first and Tower comes up before the rest of the inventory.
+
+3. This demo is specifically tied to a repository for the playbooks Tower will run against the remote hosts: https://github.com/dfederlein/ansible-demos To change this edit roles/tower/files/tower_project.json and roles/tower/files/tower_job_template.json
+
+4. You will have to supply an enterprise license to configure LDAP authentication. Place your license file in roles/tower/files/tower_license.json and make sure you have added "eula_accepted": "True" as the last line in the json blob, as well and define "ldaplicense: True" in the vars section of site.yml.
+
 Host Machine Requirements:
 
 - Tested with Fedora 27 and macOS
@@ -18,10 +28,6 @@ Host Machine Requirements:
 Ansible install instructions here: http://docs.ansible.com/intro_installation.html
 
 To install Vagrant and VirtualBox, please see http://docs.vagrantup.com/ and https://www.virtualbox.org/wiki/Downloads
-
-**Note 1:** The demo requires an internet connection on your host machine.
-
-**Note 2:** Please do not try to provision this in parallel in Vagrant. Ordering needs to happen specifically so LDAP comes up first and Tower comes up before the rest of the inventory.
 
 ## Install Instructions for macOS:
 
@@ -47,8 +53,6 @@ Now git clone this repository, cd into the directory and issue the command "vagr
 ## LDAP Authentication (OPTIONAL)
 
 This Vagrantfile will create one OpenLDAP VM for use in experimenting with authentication. 
-
-**Note:**  You will have to supply an enterprise license to configure LDAP authentication. Place your license file in roles/tower/files/tower_license.json and make sure you have added "eula_accepted": "True" as the last line in the json blob, as well and define "ldaplicense: True" in the vars section of site.yml.
 
 Settings in Tower will need to be as follows to demonstrate basic functionality:
 
@@ -85,8 +89,3 @@ Attribute Map:
 "email": "mail"
 }
 ```
-
-### Notes:
-
-1. This demo is specifically tied to a repository for the playbooks Tower will run against the remote hosts: https://github.com/dfederlein/ansible-demos To change this edit roles/tower/files/tower_project.json and roles/tower/files/tower_job_template.json
-
