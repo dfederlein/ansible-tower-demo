@@ -4,6 +4,7 @@
   become: true
   vars:
     towerpass: password1
+    ldap_demo: {{ entlicense | default('True') }}
 
   roles:
     - vagrant-common
