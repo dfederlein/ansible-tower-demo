@@ -10,8 +10,9 @@ demovm3 ansible_ssh_host=172.16.2.7 ansible_user=vagrant ansible_ssh_extra_args=
 [monitoring]
 demovm4 ansible_ssh_host=172.16.2.8 ansible_user=vagrant ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
 
-[auth]
-ldapvm ansible_ssh_host=172.16.2.9 ansible_user=vagrant ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
+# This isn't required, but can be uncommented to be added to playbooks as a demonstration
+#[auth]
+#ldapvm ansible_ssh_host=172.16.2.9 ansible_user=vagrant ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
 
 [demo:children]
 webservers
