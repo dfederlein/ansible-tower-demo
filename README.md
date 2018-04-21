@@ -13,7 +13,7 @@ Ansible Tower Demo-In-A-Box
 
 3. This demo is specifically tied to a repository for the playbooks Tower will run against the remote hosts: https://github.com/dfederlein/ansible-demos To change this edit roles/tower/files/tower_project.json and roles/tower/files/tower_job_template.json
 
-4. You will have to supply an enterprise license to configure LDAP authentication. Place your license file in roles/tower/files/tower_license.json and make sure you have added "eula_accepted": "True" as the last line in the json blob. Also be sure to define "ldaplicense: True" in the vars section of site.yml.
+4. You will have to supply an enterprise license to configure LDAP authentication. Place your license file in roles/tower/files/tower_license.json and make sure you have added "eula_accepted": "True" as the last line in the json blob. Also be sure to define "ldaplicense: True" in the vars section of site.yml. You will also need to uncomment the LDAP VM in the first VM cluster stanza in the VagrantFile before issuing the vagrant up command.
 
 Host Machine Requirements:
 
@@ -52,7 +52,7 @@ Now git clone this repository, cd into the directory and issue the command "vagr
 
 ## LDAP Authentication (OPTIONAL)
 
-This Vagrantfile will create one OpenLDAP VM for use in experimenting with authentication. 
+This Vagrantfile will create one OpenLDAP VM for use in experimenting with authentication, if you uncomment the LDAP VM in the first VM cluster stanza in the VagrantFile before issuing the vagrant up command.
 
 Settings in Tower will need to be as follows to demonstrate basic functionality:
 
