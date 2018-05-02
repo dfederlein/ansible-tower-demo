@@ -1,6 +1,6 @@
 ---
 # defaults file for tower
-towerversion: 3.2.3
+towerversion: 3.2.4
 rabbitpass: password2
 pgpass: password3
 towerchk: undefined
