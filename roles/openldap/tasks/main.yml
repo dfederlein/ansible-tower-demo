@@ -3,8 +3,9 @@
 - name: Install OpenLDAP Client and Server
   yum:
     name:
-     - openldap-servers
-     - openldap-clients
+     - openldap-clients-2.4.44-5
+     - openldap-servers-2.4.44-5
+     - openldap-2.4.44-5
      - python-ldap
     state: present
 
