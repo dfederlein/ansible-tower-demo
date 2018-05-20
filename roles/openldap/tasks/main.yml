@@ -3,9 +3,9 @@
 - name: Install OpenLDAP Client and Server
   yum:
     name:
-     - openldap-clients-2.4.44-5
-     - openldap-servers-2.4.44-5
-     - openldap-2.4.44-5
+     - https://rpmfind.net/linux/centos/7.4.1708/os/x86_64/Packages/openldap-clients-2.4.44-5.el7.x86_64.rpm
+     - https://rpmfind.net/linux/centos/7.4.1708/os/x86_64/Packages/openldap-servers-2.4.44-5.el7.x86_64.rpm
+     - https://rpmfind.net/linux/centos/7.4.1708/os/x86_64/Packages/openldap-2.4.44-5.el7.x86_64.rpm
      - python-ldap
     state: present
 
