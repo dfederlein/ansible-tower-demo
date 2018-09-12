@@ -46,7 +46,7 @@
     password: "{{ towerpass }}"
     validate_certs: False
   register: check2
-  until: check2.json is defined and check2.json.version == towerversion
+  until: check2.json is defined and check2.json.version == towerapiversion
   retries: 10
   delay: 30
   when: towerchk != towerversion
@@ -101,15 +101,15 @@
   changed_when: response.status == 201
 
 - name: place private ssh key file
-  get_url: 
+  get_url:
     url: https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant
     dest: /var/lib/awx/.ssh/id_rsa
     owner: awx
     group: awx
-    mode: 0400 
+    mode: 0400
 
 - name: template the bash profile file for awx user
-  template: 
+  template:
     src: "bash_profile"
     dest: /var/lib/awx/.bash_profile
     owner: awx
@@ -151,7 +151,7 @@
   delay: 30
   changed_when: response.status == 201 or response.status == 202
   when: responseproj.status == 201
- 
+
 - name: create rolling update job template
   uri:
     url:  https://localhost/api/v2/job_templates/
