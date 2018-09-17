@@ -6,6 +6,7 @@
     user: admin
     password: "{{ towerpass }}"
     validate_certs: False
+    force_basic_auth: yes
   register: checkout
   ignore_errors: True
 
@@ -45,12 +46,13 @@
     user: admin
     password: "{{ towerpass }}"
     validate_certs: False
+    force_basic_auth: yes
   register: check2
   until: check2.json is defined and check2.json.version == towerapiversion
   retries: 10
   delay: 30
   when: towerchk != towerversion
-  force_basic_auth: yes
+
 
 - name: Post license key
   uri:
@@ -77,13 +79,14 @@
     body: "{{ lookup('file','tower_vagrant_inventory.json') }}"
     body_format: json
     validate_certs: False
+    force_basic_auth: yes
     status_code:
       - 200
       - 201
       - 400
   register: response
   changed_when: response.status == 201
-  force_basic_auth: yes
+
 
 - name: import inventory to Tower demo inventory
   shell: tower-manage inventory_import --source=/etc/ansible/hosts --inventory-id=2
@@ -97,6 +100,7 @@
     body: "{{ lookup('file','tower_vagrant_machine_credential.json') }}"
     body_format: json
     validate_certs: False
+    force_basic_auth: yes
     status_code:
       - 200
       - 201
@@ -128,13 +132,13 @@
     body: "{{ lookup('file','tower_project.json') }}"
     body_format: json
     validate_certs: False
+    force_basic_auth: yes
     status_code:
       - 200
       - 201
       - 400
   register: responseproj
   changed_when: responseproj.status == 201
-  force_basic_auth: yes
 
 - name: create initial deploy job template
   uri:
@@ -145,6 +149,7 @@
     body: "{{ lookup('file','tower_job_template.json') }}"
     body_format: json
     validate_certs: False
+    force_basic_auth: yes
     status_code:
       - 200
       - 201
@@ -155,7 +160,6 @@
   delay: 30
   changed_when: response.status == 201 or response.status == 202
   when: responseproj.status == 201
-  force_basic_auth: yes
 
 - name: create rolling update job template
   uri:
@@ -166,6 +170,7 @@
     body: "{{ lookup('file','tower_job_template_ru.json') }}"
     body_format: json
     validate_certs: False
+    force_basic_auth: yes
     status_code:
       - 200
       - 201
@@ -176,7 +181,6 @@
   delay: 30
   changed_when: response.status == 201 or response.status == 202
   when: responseproj.status == 201
-  force_basic_auth: yes
 
 - name: create LDAP config
   uri:
@@ -187,6 +191,7 @@
     body: "{{ lookup('file','tower_ldap_config.json') }}"
     body_format: json
     validate_certs: False
+    force_basic_auth: yes
     status_code:
       - 200
       - 201
@@ -196,4 +201,3 @@
   delay: 30
   changed_when: response.status == 200 or response.status == 201
   when: ldaplicense == True
-  force_basic_auth: yes
