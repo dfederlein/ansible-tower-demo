@@ -1,7 +1,7 @@
 ---
 # defaults file for tower
-towerversion: 3.3.0-1
-towerapiversion: 3.3.0
+towerversion: 3.5.0-1
+towerapiversion: 3.5.0
 rabbitpass: password2
 pgpass: password3
 towerchk: undefined
