@@ -1,4 +1,7 @@
 ---
+- name: New Centos7 vagrant image needs epel
+  raw: yum install epel-release
+  
 - name: check if we need to do installer things
   uri:
     url: https://localhost/api/v2/ping/
