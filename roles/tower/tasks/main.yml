@@ -1,6 +1,8 @@
 ---
 - name: New Centos7 vagrant image needs epel
-  raw: yum install epel-release
+  yum:
+    name: epel-release
+    state: present
   
 - name: check if we need to do installer things
   uri:
