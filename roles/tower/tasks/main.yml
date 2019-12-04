@@ -128,61 +128,61 @@
     group: awx
     mode: 0644
 
-- name: create project
-  uri:
-    url:  https://localhost/api/v2/projects/
-    method: POST
-    user: admin
-    password: "{{ towerpass }}"
-    body: "{{ lookup('file','tower_project.json') }}"
-    body_format: json
-    validate_certs: False
-    force_basic_auth: yes
-    status_code:
-      - 200
-      - 201
-      - 400
-  register: responseproj
-  changed_when: responseproj.status == 201
+# - name: create project
+#   uri:
+#     url:  https://localhost/api/v2/projects/
+#     method: POST
+#     user: admin
+#     password: "{{ towerpass }}"
+#     body: "{{ lookup('file','tower_project.json') }}"
+#     body_format: json
+#     validate_certs: False
+#     force_basic_auth: yes
+#     status_code:
+#       - 200
+#       - 201
+#       - 400
+#   register: responseproj
+#   changed_when: responseproj.status == 201
 
-- name: create initial deploy job template
-  uri:
-    url:  https://localhost/api/v2/job_templates/
-    method: POST
-    user: admin
-    password: "{{ towerpass }}"
-    body: "{{ lookup('file','tower_job_template.json') }}"
-    body_format: json
-    validate_certs: False
-    force_basic_auth: yes
-    status_code:
-      - 200
-      - 201
-      - 202
-  register: response
-  until: response.status == 201 or response.status == 202
-  retries: 10
-  delay: 30
-  changed_when: response.status == 201 or response.status == 202
-  when: responseproj.status == 201
+# - name: create initial deploy job template
+#   uri:
+#     url:  https://localhost/api/v2/job_templates/
+#     method: POST
+#     user: admin
+#     password: "{{ towerpass }}"
+#     body: "{{ lookup('file','tower_job_template.json') }}"
+#     body_format: json
+#     validate_certs: False
+#     force_basic_auth: yes
+#     status_code:
+#       - 200
+#       - 201
+#       - 202
+#   register: response
+#   until: response.status == 201 or response.status == 202
+#   retries: 10
+#   delay: 30
+#   changed_when: response.status == 201 or response.status == 202
+#   when: responseproj.status == 201
 
-- name: create rolling update job template
-  uri:
-    url:  https://localhost/api/v2/job_templates/
-    method: POST
-    user: admin
-    password: "{{ towerpass }}"
-    body: "{{ lookup('file','tower_job_template_ru.json') }}"
-    body_format: json
-    validate_certs: False
-    force_basic_auth: yes
-    status_code:
-      - 200
-      - 201
-      - 202
-  register: response
-  until: response.status == 201 or response.status == 202
-  retries: 10
-  delay: 30
-  changed_when: response.status == 201 or response.status == 202
-  when: responseproj.status == 201
+# - name: create rolling update job template
+#   uri:
+#     url:  https://localhost/api/v2/job_templates/
+#     method: POST
+#     user: admin
+#     password: "{{ towerpass }}"
+#     body: "{{ lookup('file','tower_job_template_ru.json') }}"
+#     body_format: json
+#     validate_certs: False
+#     force_basic_auth: yes
+#     status_code:
+#       - 200
+#       - 201
+#       - 202
+#   register: response
+#   until: response.status == 201 or response.status == 202
+#   retries: 10
+#   delay: 30
+#   changed_when: response.status == 201 or response.status == 202
+#   when: responseproj.status == 201
